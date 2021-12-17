@@ -49,11 +49,11 @@ const titleClickHandler = function(event) {
   targetArticle.classList.add('active');
 };
 
-function generateTitleLinks() {
+function generateTitleLinks(customSelector = '') {
   const titleList = document.querySelector(optTitleListSelector);
   console.log(titleList);
   titleList.innerHTML = '';
-  const articles = document.querySelectorAll(optArticleSelector);
+  const articles = document.querySelectorAll(optArticleSelector + customSelector);
 
   let html = '';
 
@@ -140,13 +140,14 @@ function tagClickHandler(event){
 
 function addClickListenersToTags(){
   /* find all links to tags */
-
+  const allLinksToTags = document.querySelectorAll('a.active[href^="#tag-"]');
+  console.log(allLinksToTags);
   /* START LOOP: for each link */
-
+  for(let linkToTag of allLinksToTags){
     /* add tagClickHandler as event listener for that link */
-
+    linkToTag.addEventListener('click', tagClickHandler);
   /* END LOOP: for each link */
-  
+  }
 }
 
 addClickListenersToTags();
