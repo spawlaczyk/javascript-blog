@@ -118,3 +118,36 @@ body {
     margin: 0 10px 0 0;
   }
 }
+
+/* tag-size */
+
+.tag-size-1 {
+  font-size: 20px;
+  color: #05c46b;
+  text-decoration: none;
+}
+
+.tag-size-3 {
+  font-size: 25px;
+  color: #ff3f34;
+  text-decoration: none;
+}
+
+.tag-size-4 {
+  font-size: 30px;
+  color: #3c40c6;
+  text-decoration: none;
+}
+
+.tag-size-5 {
+  font-size: 35px;
+  color: #0fbcf9;
+  text-decoration: none;
+}
+
+.tag-cloud {
+  li {
+    display: inline-block;
+    text-decoration: none;
+  }
+}
