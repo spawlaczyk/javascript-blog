@@ -1,5 +1,11 @@
 'use strict';
 
+const templates = {
+  articleLink: Handlebars.compile(document.querySelector('#template-article-link').innerHTML),
+  tagLink: Handlebars.compile(document.querySelector('#template-tag-link').innerHTML),
+  authorLink: Handlebars.compile(document.querySelector('#template-author-link').innerHTML)
+}
+
 const optArticleSelector = '.post',
   optTitleSelector = '.post-title',
   optTitleListSelector = '.titles',
@@ -65,7 +71,8 @@ function generateTitleLinks(customSelector = '') {
   for (let article of articles) {
     const articleId = article.getAttribute('id');
     const articleTitle = article.querySelector(optTitleSelector).innerHTML;
-    const linkHTML = '<li><a href="#' + articleId + '"><span>' + articleTitle + '</span></a></li>';
+    const linkHTMLData = { id: articleId, title: articleTitle };
+    const linkHTML = templates.articleLink(linkHTMLData);
     console.log(linkHTML);
     html = html + linkHTML;
   }
@@ -124,7 +131,8 @@ function generateTags() {
     /* START LOOP: for each tag */
     for (let tag of articleTagsArray) {
       /* generate HTML of link */
-      const tagHTML = '<li><a href="#tag-' + tag + '">' + tag + '</a></li>';
+      const tagHTMLData = {tag: tag};
+      const tagHTML = templates.tagLink(tagHTMLData);
       console.log(tagHTML);
       /* add generated code to html variable */
       html = html + tagHTML + ' ';
@@ -215,9 +223,10 @@ function generateAuthors() {
     const authorWrapper = article.querySelector(optArticleAuthorSelector);
     let html = '';
     const articleAuthor = article.getAttribute('data-author');
-    const authorHTML = '<a href="#author-' + articleAuthor + '">' + articleAuthor + '</a>';
+    const authorHTMLData = {author: articleAuthor};
+    const authorHTML = templates.authorLink(authorHTMLData);
     html = html + authorHTML + '';
-    if(!allAuthors[articleAuthor]){
+    if (!allAuthors[articleAuthor]) {
       allAuthors[articleAuthor] = 1;
     } else {
       allAuthors[articleAuthor]++;
@@ -226,7 +235,7 @@ function generateAuthors() {
   }
   const authorsList = document.querySelector(optAuthorsListSelector);
   let allAuthorsHMTL = '';
-  for(let articleAuthor in allAuthors){
+  for (let articleAuthor in allAuthors) {
     allAuthorsHMTL += '<li><a href="#author-' + articleAuthor + '">' + articleAuthor + '</a>' + ' (' + allAuthors[articleAuthor] + ')</li> ';
   }
   authorsList.innerHTML = allAuthorsHMTL;
