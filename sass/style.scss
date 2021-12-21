@@ -112,6 +112,20 @@ body {
   font-style: italic;
 }
 
+.post-author {
+  li {
+    list-style-type: none;
+  }
+}
+
+.post-author {
+  li {
+    a {
+      text-decoration: none;
+    }
+  }
+}
+
 .post-tags {
   display: flex;
   p {
