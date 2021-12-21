@@ -4,7 +4,8 @@ const templates = {
   articleLink: Handlebars.compile(document.querySelector('#template-article-link').innerHTML),
   tagLink: Handlebars.compile(document.querySelector('#template-tag-link').innerHTML),
   authorLink: Handlebars.compile(document.querySelector('#template-author-link').innerHTML),
-  tagCloudLink: Handlebars.compile(document.querySelector('#template-tag-cloud-link').innerHTML)
+  tagCloudLink: Handlebars.compile(document.querySelector('#template-tag-cloud-link').innerHTML),
+  authorsColumn: Handlebars.compile(document.querySelector('#template-authors-column').innerHTML)
 }
 
 const optArticleSelector = '.post',
@@ -239,11 +240,14 @@ function generateAuthors() {
     authorWrapper.innerHTML = html;
   }
   const authorsList = document.querySelector(optAuthorsListSelector);
-  let allAuthorsHMTL = '';
+  let allAuthorsData = {authors: []};
   for (let articleAuthor in allAuthors) {
-    allAuthorsHMTL += '<li><a href="#author-' + articleAuthor + '">' + articleAuthor + '</a>' + ' (' + allAuthors[articleAuthor] + ')</li> ';
+    allAuthorsData.authors.push({
+      author: articleAuthor,
+      count: allAuthors[articleAuthor]
+    })
   }
-  authorsList.innerHTML = allAuthorsHMTL;
+  authorsList.innerHTML = templates.authorsColumn(allAuthorsData);
 }
 
 generateAuthors();
